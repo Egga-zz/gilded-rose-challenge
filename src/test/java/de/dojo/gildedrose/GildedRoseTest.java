@@ -84,6 +84,61 @@ public class GildedRoseTest {
         assertThat(firstItem.quality).isEqualTo(80);
     }
 
+    @Test
+    public void backstage_pass_quality_increases_by_one_if_sellin_is_equal_to_eleven() {
+        // when
+        Item firstItem = updateQualityForSingleItem("Backstage passes to a TAFKAL80ETC concert", 11, 5);
+
+        // then
+        assertThat(firstItem.quality).isEqualTo(6);
+    }
+
+    @Test
+    public void backstage_pass_quality_increases_by_two_if_sellin_is_equal_to_ten() {
+        // when
+        Item firstItem = updateQualityForSingleItem("Backstage passes to a TAFKAL80ETC concert", 10, 5);
+
+        // then
+        assertThat(firstItem.quality).isEqualTo(7);
+    }
+
+    @Test
+    public void backstage_pass_quality_increases_by_two_if_sellin_is_equal_to_six() {
+        // when
+        Item firstItem = updateQualityForSingleItem("Backstage passes to a TAFKAL80ETC concert", 6, 5);
+
+        // then
+        assertThat(firstItem.quality).isEqualTo(7);
+    }
+
+    @Test
+    public void backstage_pass_quality_increases_by_three_if_sellin_is_equal_to_five() {
+        // when
+        Item firstItem = updateQualityForSingleItem("Backstage passes to a TAFKAL80ETC concert", 5, 5);
+
+        // then
+        assertThat(firstItem.quality).isEqualTo(8);
+    }
+
+    @Test
+    public void backstage_pass_quality_increases_by_three_if_sellin_is_today() {
+        // when
+        Item firstItem = updateQualityForSingleItem("Backstage passes to a TAFKAL80ETC concert", 1, 5);
+
+        // then
+        assertThat(firstItem.quality).isEqualTo(8);
+    }
+
+    @Test
+    public void backstage_pass_quality_drops_to_zero_after_sellin() {
+        // when
+        Item firstItem = updateQualityForSingleItem("Backstage passes to a TAFKAL80ETC concert", 0, 5);
+
+        // then
+        assertThat(firstItem.quality).isEqualTo(0);
+    }
+
+
     private Item updateQualityForSingleItem(String name, int sellIn, int quality) {
         Item firstItem = new Item(name, sellIn, quality);
         GildedRose gildedRose = new GildedRose(new Item[]{firstItem});
