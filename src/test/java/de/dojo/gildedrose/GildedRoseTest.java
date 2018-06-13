@@ -66,6 +66,24 @@ public class GildedRoseTest {
         assertThat(firstItem.quality).isEqualTo(50);
     }
 
+    @Test
+    public void sulfuras_never_expires() {
+        // when
+        Item firstItem = updateQualityForSingleItem("Sulfuras, Hand of Ragnaros", 1, 80);
+
+        // then
+        assertThat(firstItem.sellIn).isEqualTo(1);
+    }
+
+    @Test
+    public void sulfuras_has_a_stable_quality() {
+        // when
+        Item firstItem = updateQualityForSingleItem("Sulfuras, Hand of Ragnaros", 1, 80);
+
+        // then
+        assertThat(firstItem.quality).isEqualTo(80);
+    }
+
     private Item updateQualityForSingleItem(String name, int sellIn, int quality) {
         Item firstItem = new Item(name, sellIn, quality);
         GildedRose gildedRose = new GildedRose(new Item[]{firstItem});
