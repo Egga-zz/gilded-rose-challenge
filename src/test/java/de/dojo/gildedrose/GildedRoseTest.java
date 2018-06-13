@@ -1,6 +1,5 @@
 package de.dojo.gildedrose;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,6 +55,15 @@ public class GildedRoseTest {
 
         // then
         assertThat(firstItem.quality).isEqualTo(6);
+    }
+
+    @Test
+    public void quality_of_an_item_is_never_above_50() {
+        // when
+        Item firstItem = updateQualityForSingleItem("Aged Brie", 1, 50);
+
+        // then
+        assertThat(firstItem.quality).isEqualTo(50);
     }
 
     private Item updateQualityForSingleItem(String name, int sellIn, int quality) {
