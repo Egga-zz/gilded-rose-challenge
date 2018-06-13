@@ -138,6 +138,33 @@ public class GildedRoseTest {
         assertThat(firstItem.quality).isEqualTo(0);
     }
 
+    @Test
+    public void aged_brie_does_not_surpass_quality_of_fifty_when_expired() {
+        // when
+        Item firstItem = updateQualityForSingleItem("Aged Brie", -1, 50);
+
+        // then
+        assertThat(firstItem.quality).isEqualTo(50);
+    }
+
+    @Test
+    public void aged_brie_increases_quality_by_one_when_unfinished() {
+        // when
+        Item firstItem = updateQualityForSingleItem("Aged Brie", 1, 1);
+
+        // then
+        assertThat(firstItem.quality).isEqualTo(2);
+    }
+
+    @Test
+    public void aged_brie_increases_quality_by_two_when_expired() {
+        // when
+        Item firstItem = updateQualityForSingleItem("Aged Brie", -1, 48);
+
+        // then
+        assertThat(firstItem.quality).isEqualTo(50);
+    }
+
 
     private Item updateQualityForSingleItem(String name, int sellIn, int quality) {
         Item firstItem = new Item(name, sellIn, quality);
