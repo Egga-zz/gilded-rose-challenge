@@ -12,8 +12,50 @@ class GildedRose {
 
             if (isAgedBrie(item)) {
                 updateAgedBrie(item);
+            } else if (isBackstagePasses(item)) {
+                updateBackstagePasses(item);
             } else {
                 updateItem(item);
+            }
+        }
+    }
+
+    private void updateBackstagePasses(Item item) {
+        if (isAgedBrie(item) || isBackstagePasses(item)) {
+            if (isBelowMaxQuality(item)) {
+                incrementQuality(item);
+
+                if (isBackstagePasses(item)) {
+                    if (item.sellIn < 11 && isBelowMaxQuality(item)) {
+                        incrementQuality(item);
+                    }
+
+                    if (item.sellIn < 6 && isBelowMaxQuality(item)) {
+                        incrementQuality(item);
+                    }
+                }
+            }
+        } else if (isAboveMinQuality(item) && !isSulfuras(item)) {
+            decrementQuality(item);
+        }
+
+        if (!isSulfuras(item)) {
+            decrementSellIn(item);
+        }
+
+        if (item.sellIn < 0) {
+            if (isAgedBrie(item)) {
+                if (isBelowMaxQuality(item)) {
+                    incrementQuality(item);
+                }
+            } else {
+                if (isBackstagePasses(item)) {
+                    item.quality = 0;
+                } else {
+                    if (isAboveMinQuality(item) && !isSulfuras(item)) {
+                        decrementQuality(item);
+                    }
+                }
             }
         }
     }
