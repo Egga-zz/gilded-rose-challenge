@@ -62,21 +62,9 @@ class GildedRose {
     private void updateAgedBrie(Item item) {
         if (isBelowMaxQuality(item)) {
             incrementQuality(item);
-
-            if (isBackstagePasses(item)) {
-                if (item.sellIn < 11 && isBelowMaxQuality(item)) {
-                    incrementQuality(item);
-                }
-
-                if (item.sellIn < 6 && isBelowMaxQuality(item)) {
-                    incrementQuality(item);
-                }
-            }
         }
 
-        if (!isSulfuras(item)) {
-            decrementSellIn(item);
-        }
+        decrementSellIn(item);
 
         if (item.sellIn < 0) {
             if (isBelowMaxQuality(item)) {
