@@ -15,23 +15,21 @@ class GildedRose {
 
     private void updateItem(Item item) {
         if (isAgedBrie(item) || isBackstagePasses(item)) {
-            if (item.quality < 50) {
+            if (isBelowMaxQuality(item)) {
                 incrementQuality(item);
 
                 if (isBackstagePasses(item)) {
-                    if (item.sellIn < 11 && item.quality < 50) {
+                    if (item.sellIn < 11 && isBelowMaxQuality(item)) {
                         incrementQuality(item);
                     }
 
-                    if (item.sellIn < 6 && item.quality < 50) {
+                    if (item.sellIn < 6 && isBelowMaxQuality(item)) {
                         incrementQuality(item);
                     }
                 }
             }
-        } else {
-            if (item.quality > 0 && !isSulfuras(item)) {
-                decrementQuality(item);
-            }
+        } else if (isAboveMinQuality(item) && !isSulfuras(item)) {
+            decrementQuality(item);
         }
 
         if (!isSulfuras(item)) {
@@ -40,19 +38,27 @@ class GildedRose {
 
         if (item.sellIn < 0) {
             if (isAgedBrie(item)) {
-                if (item.quality < 50) {
+                if (isBelowMaxQuality(item)) {
                     incrementQuality(item);
                 }
             } else {
                 if (isBackstagePasses(item)) {
                     item.quality = 0;
                 } else {
-                    if (item.quality > 0 && !isSulfuras(item)) {
+                    if (isAboveMinQuality(item) && !isSulfuras(item)) {
                         decrementQuality(item);
                     }
                 }
             }
         }
+    }
+
+    private boolean isAboveMinQuality(Item item) {
+        return item.quality > 0;
+    }
+
+    private boolean isBelowMaxQuality(Item item) {
+        return item.quality < 50;
     }
 
     private void decrementSellIn(Item item) {
