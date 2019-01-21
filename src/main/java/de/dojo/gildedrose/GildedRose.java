@@ -24,16 +24,14 @@ class GildedRose {
 
     private void updateBackstagePasses(Item item) {
 
-        if (isBelowMaxQuality(item)) {
-            item.quality = item.quality + 1;
+        incrementQuality(item);
 
-            if (item.sellIn < 11) {
-                incrementQuality(item);
-            }
+        if (item.sellIn < 11) {
+            incrementQuality(item);
+        }
 
-            if (item.sellIn < 6) {
-                incrementQuality(item);
-            }
+        if (item.sellIn < 6) {
+            incrementQuality(item);
         }
 
         decrementSellIn(item);
