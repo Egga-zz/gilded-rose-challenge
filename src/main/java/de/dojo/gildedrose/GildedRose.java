@@ -25,13 +25,13 @@ class GildedRose {
     private void updateBackstagePasses(Item item) {
 
         if (isBelowMaxQuality(item)) {
-            incrementQuality(item);
+            item.quality = item.quality + 1;
 
-            if (item.sellIn < 11 && isBelowMaxQuality(item)) {
+            if (item.sellIn < 11) {
                 incrementQuality(item);
             }
 
-            if (item.sellIn < 6 && isBelowMaxQuality(item)) {
+            if (item.sellIn < 6) {
                 incrementQuality(item);
             }
         }
@@ -45,31 +45,35 @@ class GildedRose {
 
 
     private void updateOrdinaryItem(Item item) {
-        if (isAboveMinQuality(item)) {
-            decrementQuality(item);
-        }
+        decrementQuality(item);
 
         decrementSellIn(item);
 
         if (item.sellIn < 0) {
-            if (isAboveMinQuality(item)) {
-                decrementQuality(item);
-            }
+            decrementQuality(item);
+        }
+    }
+
+    private void decrementQuality(Item item) {
+        if (isAboveMinQuality(item)) {
+            item.quality = item.quality - 1;
         }
     }
 
 
     private void updateAgedBrie(Item item) {
-        if (isBelowMaxQuality(item)) {
-            incrementQuality(item);
-        }
+        incrementQuality(item);
 
         decrementSellIn(item);
 
         if (item.sellIn < 0) {
-            if (isBelowMaxQuality(item)) {
-                incrementQuality(item);
-            }
+            incrementQuality(item);
+        }
+    }
+
+    private void incrementQuality(Item item) {
+        if (isBelowMaxQuality(item)) {
+            item.quality = item.quality + 1;
         }
     }
 
@@ -83,14 +87,6 @@ class GildedRose {
 
     private void decrementSellIn(Item item) {
         item.sellIn = item.sellIn - 1;
-    }
-
-    private void decrementQuality(Item item) {
-        item.quality = item.quality - 1;
-    }
-
-    private void incrementQuality(Item item) {
-        item.quality = item.quality + 1;
     }
 
     private boolean isSulfuras(Item item) {
