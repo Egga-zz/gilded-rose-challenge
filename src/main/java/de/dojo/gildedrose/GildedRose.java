@@ -16,7 +16,7 @@ class GildedRose {
                 updateBackstagePasses(item);
             } else if (isSulfuras(item)) {
             } else {
-                updateItem(item);
+                updateOrdinaryItem(item);
             }
         }
     }
@@ -43,7 +43,7 @@ class GildedRose {
     }
 
 
-    private void updateItem(Item item) {
+    private void updateOrdinaryItem(Item item) {
         if (isAboveMinQuality(item)) {
             decrementQuality(item);
         }
